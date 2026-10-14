@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <h1>Login</h1>
+
+        <form id="login-form">
+
+            <div class="form-group">
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+
+            <p
+                id="error-message"
+                class="error-message"
+            ></p>
+
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <p class="auth-link">
+            Don't have an account?
+
+            <a href="{% url 'register-page' %}">
+                Register
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+    const form =
+        document.getElementById("login-form");
+
+    const errorMessage =
+        document.getElementById("error-message");
+
+
+    function getErrorMessage(data) {
+        if (data.non_field_errors) {
+            return data.non_field_errors[0];
+        }
+
+        if (data.detail) {
+            return data.detail;
+        }
+
+        return "Login failed.";
+    }
+
+
+    form.addEventListener(
+        "submit",
+        async (event) => {
+            event.preventDefault();
+
+            errorMessage.textContent = "";
+
+            const username =
+                document.getElementById("username").value;
+
+            const password =
+                document.getElementById("password").value;
+
+
+            const response = await fetch(
+                "/api/v1/auth/login/",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    credentials: "same-origin",
+
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            if (!response.ok) {
+                errorMessage.textContent =
+                    getErrorMessage(data);
+
+                return;
+            }
+
+
+            window.location.href = "{% url 'home' %}";
+        }
+    );
+</script>
+
+{% endblock %}

@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Workouts
+{% endblock %}
+
+{% block content %}
+<div
+    class="workouts-page"
+    id="workouts-app"
+    data-list-url="{% url 'workout-list-create' %}"
+    data-detail-base="{% url 'user-workouts' %}"
+>
+
+    <div class="workouts-heading">
+        <h1>Workouts</h1>
+    </div>
+
+
+    <div
+        id="workout-completion-banner"
+        class="workout-completion-banner"
+        hidden
+    >
+        <div>
+            <strong>
+                Workout completed
+            </strong>
+
+            <span id="completion-text"></span>
+        </div>
+
+        <button
+            type="button"
+            id="close-completion-banner"
+            class="completion-close-button"
+            aria-label="Close"
+        >
+            ×
+        </button>
+    </div>
+        <!-- =========================================
+             ACTIVE WORKOUT
+             ========================================= -->
+
+        <section
+            id="workouts-in-progress-section"
+            class="workouts-in-progress-section"
+            hidden
+        >
+
+            <a
+                href="{% url 'workout-in-progress-page' %}"
+                class="workouts-in-progress-card"
+            >
+
+                <span class="workouts-in-progress-label">
+                    IN PROGRESS
+                </span>
+
+
+                <div class="workouts-in-progress-main">
+
+                    <h2
+                        id="workouts-in-progress-name"
+                    ></h2>
+
+
+                    <div class="workouts-in-progress-time">
+
+                        <span>
+                            Elapsed
+                        </span>
+
+                        <strong
+                            id="workouts-in-progress-stopwatch"
+                        >
+                            00:00:00
+                        </strong>
+
+                    </div>
+
+
+                    <span class="workouts-in-progress-arrow">
+                        →
+                    </span>
+
+                </div>
+
+            </a>
+
+        </section>
+
+
+    <div class="workout-tabs">
+        <button
+            type="button"
+            class="workout-tab active"
+            data-tab="templates"
+        >
+            Templates
+        </button>
+
+        <button
+            type="button"
+            class="workout-tab"
+            data-tab="history"
+        >
+            Workout History
+        </button>
+    </div>
+
+
+    <section
+        class="workout-tab-panel active"
+        data-panel="templates"
+    >
+        <div class="template-section-header">
+            <div>
+                <h2>Templates</h2>
+
+                <p>
+                    Choose a template or create a new one.
+                </p>
+            </div>
+
+            <a
+                href="{% url 'workout-create-page' %}"
+                class="primary-link-button create-template-button"
+            >
+                + Create Template
+            </a>
+        </div>
+
+        <div
+            id="template-list"
+            class="template-grid"
+        ></div>
+
+        <p
+            id="templates-message"
+            class="workouts-message"
+        >
+            Loading templates...
+        </p>
+    </section>
+
+
+    <section
+        class="workout-tab-panel"
+        data-panel="history"
+        hidden
+    >
+        <div class="history-tabs">
+            <button
+                type="button"
+                class="history-tab active"
+                data-history-tab="calendar"
+            >
+                Calendar
+            </button>
+
+            <button
+                type="button"
+                class="history-tab"
+                data-history-tab="records"
+            >
+                Records
+            </button>
+        </div>
+
+
+        <section
+            class="history-panel active"
+            data-history-panel="calendar"
+        >
+            <div class="calendar-card">
+                <div class="calendar-header">
+                    <button
+                        type="button"
+                        id="previous-month"
+                        class="calendar-navigation-button"
+                        aria-label="Previous month"
+                    >
+                        ‹
+                    </button>
+
+                    <h2 id="calendar-month-title"></h2>
+
+                    <button
+                        type="button"
+                        id="next-month"
+                        class="calendar-navigation-button"
+                        aria-label="Next month"
+                    >
+                        ›
+                    </button>
+                </div>
+
+                <div class="calendar-weekdays">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+
+                <div
+                    id="calendar-grid"
+                    class="calendar-grid"
+                ></div>
+            </div>
+
+
+            <section
+                id="selected-day-section"
+                class="selected-day-section"
+            >
+                <h2 id="selected-day-title">
+                    Select a day
+                </h2>
+
+                <div
+                    id="selected-day-workouts"
+                    class="selected-day-workouts"
+                ></div>
+            </section>
+        </section>
+
+
+        <section
+            class="history-panel"
+            data-history-panel="records"
+            hidden
+        >
+            <div class="records-section-header">
+                <div>
+                    <h2>Records</h2>
+
+                    <p>
+                        Workout history grouped by template.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                id="records-template-list"
+                class="template-grid"
+            ></div>
+
+            <p
+                id="records-message"
+                class="workouts-message"
+            ></p>
+        </section>
+    </section>
+
+</div>
+
+<script
+    src="{% static 'js/workout-templates/workout-read-template.js' %}"
+    defer
+></script>
+
+<script
+    src="{% static 'js/workouts.js' %}"
+    defer
+></script>
+{% endblock %}

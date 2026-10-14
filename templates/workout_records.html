@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+    Workout Records
+{% endblock %}
+
+
+{% block content %}
+
+<div
+    class="workouts-page records-page"
+    id="records-app"
+
+    data-template-id="{{ workout_id }}"
+
+    data-list-url="{% url 'workout-list-create' %}"
+
+    data-template-url="{% url 'workout-detail' workout_id %}"
+
+    data-detail-base="{% url 'user-workouts' %}"
+>
+
+    <div class="detail-back-row">
+
+        <a
+            href="{% url 'user-workouts' %}"
+            class="back-link"
+        >
+            ← Workout History
+        </a>
+
+    </div>
+
+
+    <header class="records-page-header">
+
+        <span class="records-page-label">
+            Record History
+        </span>
+
+
+        <h1
+            id="records-template-name"
+        >
+            Loading...
+        </h1>
+
+    </header>
+
+
+    <div
+        id="record-instance-list"
+        class="record-instance-list"
+    ></div>
+
+
+    <p
+        id="records-page-message"
+        class="workouts-message"
+    >
+        Loading history...
+    </p>
+
+</div>
+
+
+<script
+    src="{% static 'js/workout-records.js' %}"
+    defer
+></script>
+
+{% endblock %}

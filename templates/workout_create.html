@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create Template{% endblock %}
+
+{% block content %}
+<div class="builder-page">
+
+    <div class="builder-header">
+        <div>
+            <a
+                href="{% url 'user-workouts' %}"
+                class="back-link"
+            >
+                ← Workouts
+            </a>
+
+            <h1>Create Template</h1>
+        </div>
+    </div>
+
+
+    <form
+        id="workout-form"
+        data-create-url="{% url 'workout-list-create' %}"
+        data-catalog-url="{% url 'exercise-catalog-list-create' %}"
+        data-success-url="{% url 'user-workouts' %}"
+    >
+
+        <section class="builder-card">
+            <label
+                for="workout-name"
+                class="builder-label"
+            >
+                Template name
+            </label>
+
+            <input
+                id="workout-name"
+                class="builder-input"
+                type="text"
+                placeholder="Push Day"
+                required
+            >
+        </section>
+
+
+        <div class="builder-section-header">
+            <h2>Exercise Blocks</h2>
+        </div>
+
+
+        <div id="exercise-blocks"></div>
+
+
+        <p
+            id="workout-error"
+            class="error-message builder-error"
+        ></p>
+
+
+        <button
+            type="submit"
+            id="create-workout-button"
+            class="primary-button"
+        >
+            Create Template
+        </button>
+
+    </form>
+
+</div>
+
+<script
+    src="{% static 'js/workout-templates/workout-create-template.js' %}"
+    defer
+></script>
+
+<script
+    src="{% static 'js/workout-create.js' %}"
+    defer
+></script>
+{% endblock %}

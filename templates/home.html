@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page home-page">
+
+    <h1>
+        Home
+    </h1>
+
+
+    <!-- =========================================
+         TABS
+         ========================================= -->
+
+    <div class="workout-tabs">
+
+        <button
+            type="button"
+            class="workout-tab active"
+            data-home-tab="gymtracker"
+        >
+            GymTracker
+        </button>
+
+
+        <button
+            type="button"
+            class="workout-tab"
+            data-home-tab="discover"
+        >
+            Discover
+        </button>
+
+    </div>
+
+
+    <!-- =========================================
+         GYMTRACKER
+         ========================================= -->
+
+    <section
+        class="home-tab-panel"
+        data-home-panel="gymtracker"
+    >
+
+        <div class="home-feature-placeholder">
+
+            <p>
+                The GymTracker feature is coming soon
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         DISCOVER
+         ========================================= -->
+
+    <section
+        class="home-tab-panel"
+        data-home-panel="discover"
+        hidden
+    >
+
+        <div class="home-feature-placeholder">
+
+            <p>
+                The Discover feature is coming soon
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script
+    src="{% static 'js/home.js' %}"
+    defer
+></script>
+
+{% endblock %}

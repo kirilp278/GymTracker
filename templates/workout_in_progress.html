@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Workout In Progress
+{% endblock %}
+
+{% block content %}
+<div
+    class="builder-page in-progress-workout-page"
+    id="in-progress-app"
+    data-list-url="{% url 'workout-list-create' %}"
+    data-catalog-url="{% url 'exercise-catalog-list-create' %}"
+    data-workouts-url="{% url 'user-workouts' %}"
+>
+
+    <div class="in-progress-top-bar">
+        <a
+            href="{% url 'user-workouts' %}"
+            class="back-link"
+        >
+            ← Workouts
+        </a>
+
+        <button
+            type="button"
+            id="end-workout-button"
+            class="end-workout-button"
+            hidden
+        >
+            End Workout
+        </button>
+    </div>
+
+
+    <div
+        id="no-active-workout"
+        class="no-active-workout"
+        hidden
+    >
+        <h1>
+            No workout in progress
+        </h1>
+
+        <p>
+            Start a workout from one of your templates.
+        </p>
+
+        <a
+            href="{% url 'user-workouts' %}"
+            class="primary-link-button"
+        >
+            Back to Workouts
+        </a>
+    </div>
+
+
+    <div
+        id="active-workout-content"
+        hidden
+    >
+
+        <section class="stopwatch-section">
+            <span class="stopwatch-label">
+                Elapsed time
+            </span>
+
+            <div
+                id="workout-stopwatch"
+                class="workout-stopwatch"
+            >
+                00:00:00
+            </div>
+
+            <button
+                type="button"
+                id="edit-workout-button"
+                class="secondary-button stopwatch-edit-button"
+            >
+                Edit
+            </button>
+        </section>
+
+
+        <div
+            id="in-progress-title-area"
+            class="in-progress-title-area"
+        ></div>
+
+
+        <p
+            id="in-progress-message"
+            class="detail-message"
+        ></p>
+
+
+        <div id="in-progress-structure"></div>
+
+    </div>
+
+</div>
+
+<script
+    src="{% static 'js/workout-templates/workout-in-progress-template.js' %}"
+    defer
+></script>
+
+<script
+    src="{% static 'js/workout-templates/workout-edit-template.js' %}"
+    defer
+></script>
+
+<script
+    src="{% static 'js/workout-in-progress.js' %}"
+    defer
+></script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>
+        {% block title %}
+            Gym Tracker
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/app.css' %}"
+    >
+        <link
+            rel="stylesheet"
+            href="{% static 'css/theme.css' %}"
+        >
+            <script
+                src="{% static 'js/api.js' %}"
+                defer
+            ></script>
+        </head>
+
+<body>
+        <div
+            id="csrf-token-holder"
+            hidden
+        >
+            {% csrf_token %}
+        </div>
+
+    {% if request.user.is_authenticated %}
+        <nav class="navbar">
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+        <a
+                href="{% url 'user-workouts' %}"
+        >
+            Workouts
+        </a>
+
+            <a href="{% url 'about' %}">
+                About us
+            </a>
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logout-button"
+            >
+                Logout
+            </button>
+        </nav>
+    {% endif %}
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    {% if request.user.is_authenticated %}
+        <script>
+            const logoutButton =
+                document.getElementById("logout-button");
+
+            logoutButton.addEventListener(
+                "click",
+                async () => {
+                    await fetch(
+                        "/api/v1/auth/logout/",
+                        {
+                            method: "POST",
+                            credentials: "same-origin"
+                        }
+                    );
+
+                    window.location.href = "{% url 'login-page' %}";
+                }
+            );
+        </script>
+    {% endif %}
+
+</body>
+</html>

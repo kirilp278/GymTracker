@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Workout
+{% endblock %}
+
+{% block content %}
+<div
+    class="builder-page workout-detail-page"
+    id="workout-detail-app"
+    data-workout-id="{{ workout_id }}"
+    data-detail-url="{% url 'workout-detail' workout_id %}"
+    data-start-url="{% url 'workout-start' workout_id %}"
+    data-catalog-url="{% url 'exercise-catalog-list-create' %}"
+    data-workouts-url="{% url 'user-workouts' %}"
+    data-in-progress-url="{% url 'workout-in-progress-page' %}"
+>
+
+    <div class="detail-back-row">
+        <a
+            href="{% url 'user-workouts' %}"
+            class="back-link"
+        >
+            ← Workouts
+        </a>
+    </div>
+
+
+    <header class="workout-detail-header">
+        <div
+            id="template-title-area"
+            class="template-title-area"
+        >
+            <span class="detail-template-label">
+                Loading...
+            </span>
+        </div>
+
+        <div class="template-header-actions">
+            <button
+                type="button"
+                id="start-workout-button"
+                class="primary-button detail-action-button"
+            >
+                Start Workout
+            </button>
+
+            <button
+                type="button"
+                id="edit-workout-button"
+                class="secondary-button detail-action-button"
+            >
+                Edit
+            </button>
+        </div>
+    </header>
+
+
+    <p
+        id="detail-message"
+        class="detail-message"
+    ></p>
+
+
+    <div id="workout-detail-structure"></div>
+
+</div>
+
+<script
+    src="{% static 'js/workout-templates/workout-read-template.js' %}"
+    defer
+></script>
+
+<script
+    src="{% static 'js/workout-templates/workout-edit-template.js' %}"
+    defer
+></script>
+
+<script
+    src="{% static 'js/workout-detail.js' %}"
+    defer
+></script>
+{% endblock %}
